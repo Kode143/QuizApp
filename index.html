@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url('https://c4.wallpaperflare.com/wallpaper/935/849/231/background-tree-book-wallpaper-preview.jpg'); /* Example AI-related image from Unsplash */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .quiz-card {
+      background-color: hsla(0, 0%, 100%, 0.575);
+      border-radius: 15px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .question-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+   
+    <div class="quiz-card">
+      <h1 class="bg-info">Quiz App</h1>
+      <p class="card-title bg-transparent">Make Money with Us</p>
+      <div id="quiz">
+        <!-- Questions will be inserted here dynamically -->
+      </div>
+      <button id="submitBtn" class="btn btn-primary submit-btn">Submit</button>
+      <div id="result" class="result alert alert-success">
+        <h3>Thanks for participating!</h3>
+        <button id="continueBtn" class="btn btn-primary">Continue</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = "https://opentdb.com/api.php?amount=5&type=multiple"; // Adjust the API URL as needed
+    const quizContainer = document.getElementById("quiz");
+    const submitButton = document.getElementById("submitBtn");
+    const resultDiv = document.getElementById("result");
+
+    async function fetchQuestions() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return data.results;
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+        return [];
+      }
+    }
+
+    async function displayQuestions() {
+      const questions = await fetchQuestions();
+      let output = "";
+      questions.forEach((q, index) => {
+        output += `
+          <div class="card mb-4 bg-transparent">
+            <div class="card-body">
+              <h4 class="card-title">${q.question}</h4>
+              <div class="question-options row">
+                ${q.incorrect_answers.map(option => `
+                  <div class="col-md-6">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="q${index}" value="${option}">
+                      <label class="form-check-label">${option}</label>
+                    </div>
+                  </div>
+                `).join("")}
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q${index}" value="${q.correct_answer}">
+                    <label class="form-check-label">${q.correct_answer}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      quizContainer.innerHTML = output;
+    }
+
+    displayQuestions();
+ 
+
+    submitButton.addEventListener("click", () => {
+  if (document.querySelectorAll("input:checked").length === 5) {
+    quizContainer.style.display = "none";
+    submitButton.style.display = "none";
+    resultDiv.style.display = "block";
+  } else {
+    alert("Please answer all questions before submitting.");
+  }
+});
+
+continueBtn.addEventListener("click", () => {
+  window.location.href = "login.html"; // Replace with the actual URL of your login page
+});
+
+
+  </script>
+</body>
+</html>

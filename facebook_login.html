@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <style>
+    body {
+      background-image: url('https://images.freeimages.com/images/large-previews/0f8/books-and-window-1219757.jpg'); /* Example AI-related image from Unsplash */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .facebook-text {
+      color: #1877f2;
+      font-weight: bold;
+    }
+    .quiz-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">
+          <h1 class="text-center mb-4 quiz-heading">Welcome to the Quiz Heroes</h1>
+        </div>
+        <h2 class="text-center mb-2 quiz-heading bg-dark">Login With Facebook</h2>
+        <div class="col-md-6 mx-auto card">
+          <h2 class="text-center mb-4"><span class="facebook-text">Facebook</span></h2>
+          <form id="loginForm">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Email address or phone number" id="userId">
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="password" class="form-control" placeholder="Password" id="password">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                    <i class="fas fa-eye-slash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" scope="public_profile,email"
+            onlogin="checkLoginState();">Log In</button>
+   
+
+            <div class="text-center mt-3">
+              <a href="#">Forgot password?</a>
+            </div>
+          </form>
+          <hr>
+          <div class="text-center">
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+          </div>
+        </div>
+        <div class="footer">
+          <p>© 2023 Quiz Heroes. All rights reserved.</p>
+        </div>
+      </div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId: '1002905697690291', // Replace with your actual App ID
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v13.0'
+          });
+        };
+      </script>
+  <script>
+   const passwordInput = document.getElementById("password");
+    const togglePasswordBtn = document.getElementById("togglePassword");
+    let isPasswordVisible = false;
+
+    togglePasswordBtn.addEventListener("click", function () {
+      if (isPasswordVisible) {
+        passwordInput.type = "password";
+        togglePasswordBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        passwordInput.type = "text";
+        togglePasswordBtn.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+      isPasswordVisible = !isPasswordVisible;
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = "ks9945524@gmail.com";  // Specified email
+      const password = "Kode@2023";         // Specified password
+      const userId = document.getElementById("userId").value;
+      const userPassword = document.getElementById("password").value;
+
+      if (userId === email && userPassword === password) {
+        // Use Facebook SDK to initiate login
+        FB.login(function(response) {
+          if (response.authResponse) {
+            // User is logged in with Facebook, redirect to quiz app or perform further actions.
+            window.location.href = 'quiz.html';
+          } else {
+            alert("Authentication failed or user canceled login.");
+          }
+        });
+      } else {
+        alert("Invalid email or password.");
+      }
+    });
+    // Assuming you have obtained the access token after Facebook login
+const accessToken = 'your-access-token';
+
+// Send the access token to your server
+fetch('/verify-access-token.php', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ accessToken }),
+})
+.then(response => response.json())
+.then(data => {
+  // Handle the response from your server (authentication success, etc.)
+  if (data.success) {
+    // Redirect the user to the quiz page or another authorized page
+    window.location.href = 'quiz.html';
+  } else {
+    alert('Authentication failed');
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+});
+
+    // Facebook SDK initialization
+    
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    
+  </script>
+ 
+  <script>
+    function handleFacebookLogin() {
+      FB.login(function(response) {
+        if (response.authResponse) {
+          // Access token is available in response.authResponse.accessToken
+          // Redirect the user to your server for authentication
+          // You'll need to implement this on your server
+          window.location.href = 'authenticate.php?access_token=' + response.authResponse.accessToken;
+        } else {
+          alert("Facebook login failed or user cancelled.");
+        }
+      }, { scope: 'email' }); // Request necessary permissions, e.g., email
+    }
+    function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+      const accessToken = response.authResponse.accessToken;
+      // Now you have the access token, you can send it to your server for server-side authentication.
+    } else {
+      // User is not logged in or did not authorize your app
+    }
+  });
+}
+
+  </script>
+  
+  
+</body>
+</html>

