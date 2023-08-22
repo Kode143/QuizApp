@@ -10,7 +10,7 @@
       background-image: url('https://c4.wallpaperflare.com/wallpaper/935/849/231/background-tree-book-wallpaper-preview.jpg'); /* Example AI-related image from Unsplash */
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
+      background-repeat: repeat-y;
       height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
@@ -70,7 +70,8 @@
   </div>
 
   <script>
-    const apiUrl = "https://opentdb.com/api.php?amount=5&type=multiple"; // Adjust the API URL as needed
+    const apiUrl = "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple";
+
     const quizContainer = document.getElementById("quiz");
     const submitButton = document.getElementById("submitBtn");
     const resultDiv = document.getElementById("result");

